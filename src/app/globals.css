@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: `dark:` applies when a .dark ancestor is present. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   HausaLearn Tech — Design System (Tailwind v4, CSS-first)
+   Softened "neat" palette derived from the new logo.
+   No hardcoded hex in components — use these tokens only.
+   ============================================================ */
+
+@theme {
+  /* Brand — green (kore) */
+  --color-kore: #35a07e;
+  --color-kore-600: #2f8468;
+  --color-kore-700: #2b7259;
+  --color-kore-tint: #e7f3ee;
+
+  /* Brand — blue (shudi) */
+  --color-shudi: #35608c;
+  --color-shudi-600: #2b4e73;
+  --color-shudi-700: #24425f;
+  --color-shudi-tint: #e9f0f5;
+
+  /* Neutrals */
+  --color-ink: #14304a;
+  --color-slate: #46525e;
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f8fa;
+  --color-line: #e4eaf0;
+
+  /* Always-dark surface (footer, dark chips) — does not flip in dark mode. */
+  --color-footer: #14304a;
+
+  /* WhatsApp brand green (floating CTA). */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #1da851;
+
+  /* Typography */
+  --font-heading: var(--font-montserrat), "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Google Sans", "Product Sans", var(--font-inter), "Inter", system-ui, sans-serif;
+
+  /* Radius scale */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Shadow */
+  --shadow-card: 0 10px 30px -12px rgba(20, 48, 74, 0.18);
+}
+
+/* ---- Base styles ---- */
+:root {
+  --brand-gradient: linear-gradient(120deg, #35a07e 0%, #35608c 100%);
+  /* Deeper gradient for buttons — keeps white label legible (AA). */
+  --brand-gradient-strong: linear-gradient(120deg, #2f8468 0%, #2b4e73 100%);
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+/* ---- Dark theme token overrides ---- */
+.dark {
+  color-scheme: dark;
+  --color-surface: #0b1620;
+  --color-surface-2: #0f1e2b;
+  --color-line: #21384c;
+  --color-ink: #eef4fa; /* headings / dark text -> light */
+  --color-slate: #9fb2c4; /* body text -> muted light */
+  --color-kore-tint: #14312a; /* chip surfaces -> deep */
+  --color-shudi-tint: #14273b;
+  --shadow-card: 0 10px 30px -12px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: var(--color-slate);
+    background-color: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  a {
+    color: var(--color-shudi);
+  }
+}
+
+/* ---- Brand utilities ---- */
+@utility bg-brand-gradient {
+  background-image: var(--brand-gradient);
+}
+
+@utility bg-brand-gradient-strong {
+  background-image: var(--brand-gradient-strong);
+}
+
+@utility text-gradient {
+  background-image: var(--brand-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Focus visibility for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--color-shudi);
+  outline-offset: 2px;
+}

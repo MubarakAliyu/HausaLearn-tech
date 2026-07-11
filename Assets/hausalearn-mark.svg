@@ -1,0 +1,27 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HausaLearn Tech mark">
+  <defs>
+    <linearGradient id="kore" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#41A98A"/>
+      <stop offset="1" stop-color="#2F8468"/>
+    </linearGradient>
+    <linearGradient id="shudi" x1="0.2" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#3E6E9C"/>
+      <stop offset="1" stop-color="#2B4E73"/>
+    </linearGradient>
+    <linearGradient id="swoosh" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#35A07E"/>
+      <stop offset="1" stop-color="#35608C"/>
+    </linearGradient>
+  </defs>
+  <path d="M182 232 C 220 292, 292 292, 330 218" fill="none" stroke="url(#swoosh)" stroke-width="34" stroke-linecap="round"/>
+  <rect x="159" y="120" width="46" height="272" rx="20" fill="url(#kore)"/>
+  <rect x="307" y="120" width="46" height="272" rx="20" fill="url(#shudi)"/>
+  <g stroke="#2B4E73" stroke-width="9" stroke-linecap="round">
+    <path d="M353 166 H 396" fill="none"/>
+    <path d="M353 208 H 380 V 244" fill="none"/>
+    <path d="M408 166 V 198" fill="none"/>
+  </g>
+  <circle cx="408" cy="166" r="14" fill="#41A98A"/>
+  <circle cx="380" cy="256" r="14" fill="#3E6E9C"/>
+  <circle cx="408" cy="208" r="10" fill="#2F8468"/>
+</svg>

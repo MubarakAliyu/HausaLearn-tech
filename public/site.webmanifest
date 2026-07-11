@@ -1,0 +1,22 @@
+{
+  "name": "HausaLearn Tech",
+  "short_name": "HausaLearn",
+  "description": "Digital skills education in the Hausa language.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#35608c",
+  "icons": [
+    {
+      "src": "/brand/hausalearn-mark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
