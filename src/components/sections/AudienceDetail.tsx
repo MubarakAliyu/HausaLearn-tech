@@ -40,7 +40,7 @@ export function AudienceDetail() {
         className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
       >
         {groups.map(({ icon: Icon, label }, i) => (
-          <RevealItem key={label}>
+          <RevealItem key={i}>
             <Card className="flex h-full items-start gap-4">
               <span className="bg-kore-tint text-kore-700 dark:text-kore flex h-11 w-11 shrink-0 items-center justify-center rounded-full">
                 <Icon size={20} />

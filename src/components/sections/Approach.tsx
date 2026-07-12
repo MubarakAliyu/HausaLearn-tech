@@ -47,7 +47,7 @@ export function Approach() {
         </div>
         <SectionReveal stagger className="grid grid-cols-3 gap-8">
           {steps.map(({ icon: Icon, title, body }, i) => (
-            <RevealItem key={title}>
+            <RevealItem key={i}>
               <div className="flex flex-col items-center text-center">
                 <div className="bg-surface border-kore text-kore-700 dark:text-kore relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-2 shadow-[var(--shadow-card)]">
                   <Icon size={26} />
@@ -78,7 +78,7 @@ export function Approach() {
         </div>
         <SectionReveal stagger className="flex flex-col gap-8">
           {steps.map(({ icon: Icon, title, body }, i) => (
-            <RevealItem key={title}>
+            <RevealItem key={i}>
               <div className="flex items-start gap-5">
                 <div className="bg-surface border-kore text-kore-700 dark:text-kore relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 shadow-[var(--shadow-card)]">
                   <Icon size={24} />

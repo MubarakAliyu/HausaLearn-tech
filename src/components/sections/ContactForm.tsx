@@ -2,12 +2,13 @@
 
 import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
-import { Send, Check, Loader } from "react-feather";
+import emailjs from "@emailjs/browser";
+import { Send, Check, Loader, AlertTriangle } from "react-feather";
 import { useT } from "@/i18n/LanguageProvider";
-import { whatsapp, mailto } from "@/data/site";
+import { mailto } from "@/data/site";
 import { cn } from "@/lib/cn";
 
-type Status = "idle" | "sending" | "sent";
+type Status = "idle" | "sending" | "sent" | "error";
 interface Errors {
   name?: string;
   email?: string;
@@ -15,6 +16,16 @@ interface Errors {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const RECIPIENT = "saratubsalihu@gmail.com";
+const EMAILJS = {
+  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+};
+const emailjsReady = Boolean(
+  EMAILJS.serviceId && EMAILJS.templateId && EMAILJS.publicKey,
+);
 
 export function ContactForm() {
   const t = useT();
@@ -37,16 +48,50 @@ export function ContactForm() {
     return Object.keys(next).length === 0;
   };
 
-  const body = () =>
-    `${t.contact.whatsappIntro}\n\n${f.name}: ${name}\n${f.email}: ${email}\n${f.message}: ${message}`;
+  const emailBody = () =>
+    `Name: ${name}\nEmail: ${email}\n\n${message}`;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const reset = () => {
+    setName("");
+    setEmail("");
+    setMessage("");
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+
+    // If EmailJS isn't configured yet, fall back to the user's mail client
+    // (still addressed to the recipient) so the form always delivers.
+    if (!emailjsReady) {
+      setStatus("sending");
+      window.location.href = mailto(
+        `HausaLearn Tech — message from ${name}`,
+        emailBody(),
+      );
+      setStatus("sent");
+      return;
+    }
+
     setStatus("sending");
-    // Open WhatsApp with the prefilled message (primary channel).
-    window.open(whatsapp(body()), "_blank", "noopener,noreferrer");
-    setStatus("sent");
+    try {
+      await emailjs.send(
+        EMAILJS.serviceId as string,
+        EMAILJS.templateId as string,
+        {
+          from_name: name,
+          from_email: email,
+          message,
+          to_email: RECIPIENT,
+          reply_to: email,
+        },
+        { publicKey: EMAILJS.publicKey as string },
+      );
+      setStatus("sent");
+      reset();
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -80,11 +125,16 @@ export function ContactForm() {
 
       <motion.button
         type="submit"
-        whileHover={reduced || status !== "idle" ? undefined : { scale: 1.02 }}
-        whileTap={reduced || status !== "idle" ? undefined : { scale: 0.98 }}
+        disabled={status === "sending"}
+        whileHover={reduced || status === "sending" ? undefined : { scale: 1.02 }}
+        whileTap={reduced || status === "sending" ? undefined : { scale: 0.98 }}
         className={cn(
-          "rounded-md inline-flex h-12 items-center justify-center gap-2 px-6 font-[family-name:var(--font-heading)] font-bold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.25)]",
-          status === "sent" ? "bg-kore-600" : "bg-brand-gradient-strong",
+          "rounded-md inline-flex h-12 items-center justify-center gap-2 px-6 font-[family-name:var(--font-heading)] font-bold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.25)] disabled:cursor-wait",
+          status === "sent"
+            ? "bg-kore-600"
+            : status === "error"
+              ? "bg-kore-700"
+              : "bg-brand-gradient-strong",
         )}
       >
         {/* Keyed remount (no exit-wait) so the label swap can never stall. */}
@@ -110,11 +160,22 @@ export function ContactForm() {
               <Check size={18} /> {f.sent}
             </>
           )}
+          {status === "error" && (
+            <>
+              <AlertTriangle size={18} /> {f.send}
+            </>
+          )}
         </motion.span>
       </motion.button>
 
+      {status === "error" && (
+        <p className="text-kore-700 dark:text-kore -mt-2 text-center text-sm font-medium">
+          {f.error}
+        </p>
+      )}
+
       <a
-        href={mailto("HausaLearn Tech enquiry", body())}
+        href={mailto(`HausaLearn Tech — message from ${name || ""}`, emailBody())}
         className="text-slate hover:text-shudi text-center text-sm font-medium underline-offset-2 hover:underline"
       >
         {f.mailtoFallback}

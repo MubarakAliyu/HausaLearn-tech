@@ -92,8 +92,8 @@ export function Footer() {
               {t.footer.connect}
             </h3>
             <ul className="mb-6 space-y-3 text-sm">
-              {socials.map(({ icon: Icon, label, href }) => (
-                <li key={label}>
+              {socials.map(({ icon: Icon, label, href }, i) => (
+                <li key={i}>
                   <motion.a
                     href={href}
                     target={href.startsWith("http") ? "_blank" : undefined}

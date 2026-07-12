@@ -135,8 +135,9 @@ export const ha: Dictionary = {
       message: "Saƙo",
       messagePlaceholder: "Yaya za mu taimaka?", // TODO: HA review
       send: "Aika saƙo",
-      sending: "Ana buɗe WhatsApp…", // TODO: HA review
-      sent: "Na gode! Ci gaba a WhatsApp.", // TODO: HA review
+      sending: "Ana aikawa…", // TODO: HA review
+      sent: "An aika saƙo — na gode!", // TODO: HA review
+      error: "An kasa aikawa. Sake gwadawa ko aiko mana imel kai tsaye.", // TODO: HA review
       mailtoFallback: "Ko aika imel maimakon haka", // TODO: HA review
       errorRequired: "Ana buƙatar wannan filin.", // TODO: HA review
       errorEmail: "Da fatan shigar da ingantaccen adireshin imel.", // TODO: HA review

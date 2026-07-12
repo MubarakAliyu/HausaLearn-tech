@@ -43,8 +43,8 @@ export function WhyHausaLearn() {
         stagger
         className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {pillars.map(({ icon: Icon, title, body, accent }) => (
-          <RevealItem key={title}>
+        {pillars.map(({ icon: Icon, title, body, accent }, i) => (
+          <RevealItem key={i}>
             <Card accent={accent} className="h-full">
               <span
                 className={

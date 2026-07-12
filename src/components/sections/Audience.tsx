@@ -48,8 +48,8 @@ export function Audience({ alt = true }: { alt?: boolean }) {
         staggerDelay={0.08}
         className="mt-10 flex flex-wrap justify-center gap-3 sm:gap-4"
       >
-        {groups.map(({ icon: Icon, label }) => (
-          <RevealItem key={label}>
+        {groups.map(({ icon: Icon, label }, i) => (
+          <RevealItem key={i}>
             <div className="border-line bg-surface rounded-pill hover:border-kore/40 flex items-center gap-2.5 border px-5 py-3 shadow-[var(--shadow-card)] transition-colors">
               <span className="text-kore">
                 <Icon size={18} />

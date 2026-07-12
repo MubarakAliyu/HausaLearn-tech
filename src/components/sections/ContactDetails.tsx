@@ -28,9 +28,9 @@ export function ContactDetails() {
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-ink text-lg font-bold">{t.contact.details.title}</h3>
-      {items.map(({ icon: Icon, label, value, href }) => (
+      {items.map(({ icon: Icon, label, value, href }, i) => (
         <motion.a
-          key={label}
+          key={i}
           href={href}
           target={href.startsWith("http") ? "_blank" : undefined}
           rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
